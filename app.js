@@ -3,10 +3,13 @@ const PRODUCTS = [
   { id: 2, name: 'Seeded Rye', cat: 'Bread', price: 70, emoji: '🥖', desc: 'Dense, nutty and packed with seeds.' },
   { id: 3, name: 'Butter Croissant', cat: 'Pastry', price: 38, emoji: '🥐', tag: 'Fresh daily', desc: 'Laminated by hand with real butter.' },
   { id: 4, name: 'Cinnamon Swirl', cat: 'Pastry', price: 42, emoji: '🌀', desc: 'Soft, sticky and finished with cream-cheese glaze.' },
-  { id: 5, name: 'Double Choc Brownie', cat: 'Sweet', price: 45, emoji: '🍫', tag: 'Bestseller', desc: 'Fudgy centre, crisp top, dark chocolate chunks.' },
+  { id: 5, name: 'Double Choc Brownie', cat: 'Sweet', price: 45, emoji: '🍫', img: 'images/choc-brownies.jpg', tag: 'Bestseller', desc: 'Fudgy centre, crisp top, dark chocolate chunks.' },
   { id: 6, name: 'Chocolate Chip Cookies (6)', cat: 'Sweet', price: 85, emoji: '🍪', desc: 'Brown butter, sea salt, still gooey inside.' },
   { id: 7, name: 'Vanilla Cupcakes (4)', cat: 'Cakes', price: 95, emoji: '🧁', desc: 'Vanilla bean sponge with buttercream swirl.' },
   { id: 8, name: 'Red Velvet Cake', cat: 'Cakes', price: 420, emoji: '🍰', desc: 'Serves 8–10. Cream-cheese frosting.' },
+  { id: 9, name: 'RAW Gold Ethereal Grinder', cat: 'Accessories', price: 450, emoji: '⚙️', img: 'images/raw-gold-grinder.jpg', tag: '18+', desc: '4-piece gold-finish grinder with kief catcher.' },
+  { id: 10, name: 'RAW Classic Connoisseur Papers + Tips', cat: 'Accessories', price: 45, emoji: '📄', img: 'images/raw-classic-papers.jpg', tag: '18+', desc: '1¼ size natural unrefined papers with tips.' },
+  { id: 11, name: 'RAW Bamboo Rolling Tray', cat: 'Accessories', price: 650, emoji: '🪵', img: 'images/raw-bamboo-tray.jpg', tag: '18+', desc: 'Bamboo tray with compartments and magnetic lid.' },
 ];
 
 const FREE_DELIVERY_AT = 500, DELIVERY_FEE = 50;
@@ -26,7 +29,7 @@ function renderFilters() {
 function renderGrid() {
   $('#grid').innerHTML = PRODUCTS.filter(p => filter === 'All' || p.cat === filter).map((p, i) => `
     <article class="card" style="--i:${i}">
-      <div class="thumb" aria-hidden="true"><span class="em">${p.emoji}</span>${p.tag ? `<span class="tag">${p.tag}</span>` : ''}</div>
+      <div class="thumb" aria-hidden="true">${p.img ? `<img class="photo" src="${p.img}" alt="${p.name}" loading="lazy">` : `<span class="em">${p.emoji}</span>`}${p.tag ? `<span class="tag">${p.tag}</span>` : ''}</div>
       <div class="card-body">
         <h3>${p.name}</h3><p>${p.desc}</p>
         <div class="card-foot"><span class="price">${rand(p.price)}</span>
@@ -44,7 +47,7 @@ function renderCart() {
   $('#cartCount').textContent = ids.reduce((s, id) => s + cart[id], 0);
   $('#cartItems').innerHTML = ids.length ? ids.map(id => {
     const p = PRODUCTS.find(x => x.id == id), q = cart[id];
-    return `<div class="line"><div class="em">${p.emoji}</div>
+    return `<div class="line"><div class="em">${p.img ? `<img src="${p.img}" alt="">` : p.emoji}</div>
       <div><b>${p.name}</b><br><small>${rand(p.price)}</small>
         <div class="qty"><button data-d="-1" data-id="${id}" aria-label="Decrease">−</button><span>${q}</span><button data-d="1" data-id="${id}" aria-label="Increase">+</button></div></div>
       <div style="text-align:right"><b>${rand(p.price * q)}</b><br><button class="rm" data-rm="${id}">Remove</button></div></div>`;
