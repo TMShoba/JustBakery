@@ -1,4 +1,9 @@
 const PRODUCTS = [
+  { id: 20, name: 'Midnight Mango', cat: 'Flower', price: 280, emoji: '🌿', img: 'images/flower-1.jpg', tag: '18+', desc: 'Indica-leaning. Sweet tropical aroma, 3.5g jar.' },
+  { id: 21, name: 'Sweet Rye Haze', cat: 'Flower', price: 260, emoji: '🌿', img: 'images/flower-2.jpg', tag: '18+', desc: 'Sativa-leaning. Bright, earthy and citrus notes, 3.5g jar.' },
+  { id: 22, name: 'Highveld Kush', cat: 'Flower', price: 300, emoji: '🌿', img: 'images/flower-3.jpg', tag: 'Bestseller', desc: 'Hybrid. Pine and spice aroma, dense golden buds, 3.5g jar.' },
+  { id: 23, name: 'Cape Citrus', cat: 'Flower', price: 270, emoji: '🌿', img: 'images/flower-4.jpg', tag: '18+', desc: 'Hybrid. Zesty lemon and sweet orange profile, 3.5g jar.' },
+  { id: 24, name: 'Durban Dusk', cat: 'Flower', price: 320, emoji: '🌿', img: 'images/flower-5.jpg', tag: 'New', desc: 'Indica-leaning. Rich, sweet and woody, frosty buds, 3.5g jar.' },
   { id: 5, name: 'Double Choc Brownie', cat: 'Sweet', price: 45, emoji: '🍫', img: 'images/choc-brownies.jpg', tag: 'Bestseller', desc: 'Fudgy centre, crisp top, dark chocolate chunks.' },
   { id: 9, name: 'RAW Gold Ethereal Grinder', cat: 'Accessories', price: 450, emoji: '⚙️', img: 'images/raw-gold-grinder.jpg', tag: '18+', desc: '4-piece gold-finish grinder with kief catcher.' },
   { id: 10, name: 'RAW Classic Connoisseur Papers + Tips', cat: 'Accessories', price: 45, emoji: '📄', img: 'images/raw-classic-papers.jpg', tag: '18+', desc: '1¼ size natural unrefined papers with tips.' },

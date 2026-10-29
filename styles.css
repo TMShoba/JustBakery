@@ -232,3 +232,4 @@ button{touch-action:manipulation}
 .thumb .tag{z-index:1}
 .line .em{overflow:hidden}
 .line .em img{width:100%;height:100%;object-fit:cover}
+.footer .mock{margin-top:.4rem;font-size:.75rem;opacity:.7}
