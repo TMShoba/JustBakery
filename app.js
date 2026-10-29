@@ -24,9 +24,9 @@ function renderFilters() {
     `<button class="chip" role="tab" aria-selected="${c === filter}" data-c="${c}">${c}</button>`).join('');
 }
 function renderGrid() {
-  $('#grid').innerHTML = PRODUCTS.filter(p => filter === 'All' || p.cat === filter).map(p => `
-    <article class="card">
-      <div class="thumb" aria-hidden="true">${p.emoji}${p.tag ? `<span class="tag">${p.tag}</span>` : ''}</div>
+  $('#grid').innerHTML = PRODUCTS.filter(p => filter === 'All' || p.cat === filter).map((p, i) => `
+    <article class="card" style="--i:${i}">
+      <div class="thumb" aria-hidden="true"><span class="em">${p.emoji}</span>${p.tag ? `<span class="tag">${p.tag}</span>` : ''}</div>
       <div class="card-body">
         <h3>${p.name}</h3><p>${p.desc}</p>
         <div class="card-foot"><span class="price">${rand(p.price)}</span>
@@ -55,13 +55,39 @@ function renderCart() {
   $('#total').textContent = rand(t.total);
   $('#checkoutBtn').disabled = !ids.length;
   $('#checkoutBtn').style.opacity = ids.length ? 1 : .4;
+  const left = FREE_DELIVERY_AT - t.sub;
+  $('#shipMsg').textContent = !t.sub ? `Free delivery over ${rand(FREE_DELIVERY_AT)}`
+    : left > 0 ? `Add ${rand(left)} more for free delivery` : '🎉 You\'ve unlocked free delivery!';
+  $('#shipBar').style.width = Math.min(100, t.sub / FREE_DELIVERY_AT * 100) + '%';
   save();
 }
 const openDrawer = on => {
   $('#drawer').classList.toggle('on', on);
   $('#overlay').classList.toggle('on', on);
   $('#drawer').setAttribute('aria-hidden', !on);
+  document.body.classList.toggle('lock', on);
 };
+let toastT;
+function toast(msg) {
+  const t = $('#toast'); t.textContent = msg; t.classList.add('on');
+  clearTimeout(toastT); toastT = setTimeout(() => t.classList.remove('on'), 1800);
+}
+function bump() {
+  const c = $('#cartCount'); c.classList.remove('bump'); void c.offsetWidth; c.classList.add('bump');
+}
+
+// scroll reveals
+const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); }
+}), { threshold: .15 }) : null;
+document.querySelectorAll('[data-reveal]').forEach(el => io ? io.observe(el) : el.classList.add('in'));
+
+// header shadow + mobile menu
+const onScroll = () => $('.header').classList.toggle('scrolled', scrollY > 8);
+addEventListener('scroll', onScroll, { passive: true }); onScroll();
+const setMenu = on => { $('#nav').classList.toggle('open', on); $('#burger').setAttribute('aria-expanded', on); };
+$('#burger').onclick = () => setMenu(!$('#nav').classList.contains('open'));
+$('#nav').addEventListener('click', e => { if (e.target.closest('a')) setMenu(false); });
 
 $('#filters').addEventListener('click', e => {
   const c = e.target.closest('.chip'); if (!c) return;
@@ -70,7 +96,10 @@ $('#filters').addEventListener('click', e => {
 $('#grid').addEventListener('click', e => {
   const b = e.target.closest('.add'); if (!b) return;
   cart[b.dataset.id] = (cart[b.dataset.id] || 0) + 1;
-  renderCart(); openDrawer(true);
+  renderCart(); bump();
+  toast(`${PRODUCTS.find(p => p.id == b.dataset.id).name} added to cart`);
+  b.classList.add('ok'); b.textContent = 'Added ✓';
+  setTimeout(() => { b.classList.remove('ok'); b.textContent = 'Add to cart'; }, 1200);
 });
 $('#cartItems').addEventListener('click', e => {
   const d = e.target.closest('[data-d]'), r = e.target.closest('[data-rm]');
@@ -80,7 +109,7 @@ $('#cartItems').addEventListener('click', e => {
 });
 $('#openCart').onclick = () => openDrawer(true);
 $('#closeCart').onclick = $('#overlay').onclick = () => openDrawer(false);
-document.addEventListener('keydown', e => { if (e.key === 'Escape') { openDrawer(false); closeCheckout(); } });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') { openDrawer(false); closeCheckout(); setMenu(false); } });
 
 function closeCheckout() { $('#checkout').hidden = true; }
 $('#checkoutBtn').onclick = () => {

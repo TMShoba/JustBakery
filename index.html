@@ -15,7 +15,7 @@
 
 <header class="header">
   <a href="#top" class="brand" aria-label="J.U.S.T Bakery home"><img src="logo.png" alt="J.U.S.T Bakery logo"></a>
-  <nav class="nav" aria-label="Main">
+  <nav class="nav" id="nav" aria-label="Main">
     <a href="#shop">Shop</a>
     <a href="#story">Our story</a>
     <a href="#visit">Visit</a>
@@ -23,7 +23,9 @@
   <button class="cart-btn" id="openCart" aria-label="Open cart">
     Cart <span class="count" id="cartCount">0</span>
   </button>
+  <button class="burger" id="burger" aria-label="Menu" aria-expanded="false" aria-controls="nav"><span></span><span></span><span></span></button>
 </header>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <main id="top">
   <section class="hero">
@@ -40,7 +42,10 @@
   </section>
 
   <section class="strip" aria-hidden="true">
-    <span>Fresh</span><span>•</span><span>Handmade</span><span>•</span><span>Small batch</span><span>•</span><span>Fresh</span><span>•</span><span>Handmade</span><span>•</span><span>Small batch</span>
+    <div class="marquee">
+      <span>Fresh</span><span>•</span><span>Handmade</span><span>•</span><span>Small batch</span><span>•</span><span>Slow fermented</span><span>•</span><span>Baked daily</span><span>•</span>
+      <span>Fresh</span><span>•</span><span>Handmade</span><span>•</span><span>Small batch</span><span>•</span><span>Slow fermented</span><span>•</span><span>Baked daily</span><span>•</span>
+    </div>
   </section>
 
   <section id="shop" class="section">
@@ -52,21 +57,21 @@
   </section>
 
   <section id="story" class="section story">
-    <h2>Our story</h2>
-    <p>J.U.S.T Bakery started in 2022 in a home kitchen with one oven and a lot of stubbornness. Today we still bake in small batches, with no shortcuts: slow-fermented dough, real butter, and recipes we've tuned one loaf at a time.</p>
+    <h2 data-reveal>Our story</h2>
+    <p data-reveal>J.U.S.T Bakery started in 2022 in a home kitchen with one oven and a lot of stubbornness. Today we still bake in small batches, with no shortcuts: slow-fermented dough, real butter, and recipes we've tuned one loaf at a time.</p>
     <div class="stats">
-      <div><b>2022</b><span>Founded</span></div>
-      <div><b>100%</b><span>Baked from scratch</span></div>
-      <div><b>Daily</b><span>Fresh batches</span></div>
+      <div data-reveal><b>2022</b><span>Founded</span></div>
+      <div data-reveal style="--d:.1s"><b>100%</b><span>Baked from scratch</span></div>
+      <div data-reveal style="--d:.2s"><b>Daily</b><span>Fresh batches</span></div>
     </div>
   </section>
 
   <section id="visit" class="section visit">
     <h2>Order &amp; visit</h2>
     <div class="visit-grid">
-      <div><h3>Delivery</h3><p>Orders placed before 14:00 are delivered the next morning.</p></div>
-      <div><h3>Hours</h3><p>Mon–Sat 07:00–17:00<br>Sun 08:00–13:00</p></div>
-      <div><h3>Contact</h3><p>hello@justbakery.example<br>Update with your details</p></div>
+      <div data-reveal><h3>Delivery</h3><p>Orders placed before 14:00 are delivered the next morning.</p></div>
+      <div data-reveal style="--d:.1s"><h3>Hours</h3><p>Mon–Sat 07:00–17:00<br>Sun 08:00–13:00</p></div>
+      <div data-reveal style="--d:.2s"><h3>Contact</h3><p>hello@justbakery.example<br>Update with your details</p></div>
     </div>
   </section>
 </main>
@@ -82,6 +87,7 @@
     <h3>Your cart</h3>
     <button class="icon-btn" id="closeCart" aria-label="Close cart">✕</button>
   </div>
+  <div class="ship"><p id="shipMsg"></p><div class="bar"><i id="shipBar"></i></div></div>
   <div class="drawer-body" id="cartItems"></div>
   <div class="drawer-foot">
     <div class="row"><span>Subtotal</span><b id="subtotal">R0</b></div>
