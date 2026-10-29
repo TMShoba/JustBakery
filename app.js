@@ -82,6 +82,14 @@ const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.
 }), { threshold: .15 }) : null;
 document.querySelectorAll('[data-reveal]').forEach(el => io ? io.observe(el) : el.classList.add('in'));
 
+// light / dark theme (follows the device until the user picks one)
+$('#themeBtn').onclick = () => {
+  const cur = document.documentElement.dataset.theme || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+  const next = cur === 'dark' ? 'light' : 'dark';
+  document.documentElement.dataset.theme = next;
+  try { localStorage.setItem('just-theme', next); } catch {}
+};
+
 // header shadow + mobile menu
 const onScroll = () => $('.header').classList.toggle('scrolled', scrollY > 8);
 addEventListener('scroll', onScroll, { passive: true }); onScroll();
