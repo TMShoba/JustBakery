@@ -1,15 +1,10 @@
 const PRODUCTS = [
-  { id: 1, name: 'Sourdough Loaf', cat: 'Bread', price: 65, emoji: '🍞', tag: 'Bestseller', desc: '48-hour ferment, crackly crust, tender crumb.' },
-  { id: 2, name: 'Seeded Rye', cat: 'Bread', price: 70, emoji: '🥖', desc: 'Dense, nutty and packed with seeds.' },
-  { id: 3, name: 'Butter Croissant', cat: 'Pastry', price: 38, emoji: '🥐', tag: 'Fresh daily', desc: 'Laminated by hand with real butter.' },
-  { id: 4, name: 'Cinnamon Swirl', cat: 'Pastry', price: 42, emoji: '🌀', desc: 'Soft, sticky and finished with cream-cheese glaze.' },
   { id: 5, name: 'Double Choc Brownie', cat: 'Sweet', price: 45, emoji: '🍫', img: 'images/choc-brownies.jpg', tag: 'Bestseller', desc: 'Fudgy centre, crisp top, dark chocolate chunks.' },
-  { id: 6, name: 'Chocolate Chip Cookies (6)', cat: 'Sweet', price: 85, emoji: '🍪', desc: 'Brown butter, sea salt, still gooey inside.' },
-  { id: 7, name: 'Vanilla Cupcakes (4)', cat: 'Cakes', price: 95, emoji: '🧁', desc: 'Vanilla bean sponge with buttercream swirl.' },
-  { id: 8, name: 'Red Velvet Cake', cat: 'Cakes', price: 420, emoji: '🍰', desc: 'Serves 8–10. Cream-cheese frosting.' },
   { id: 9, name: 'RAW Gold Ethereal Grinder', cat: 'Accessories', price: 450, emoji: '⚙️', img: 'images/raw-gold-grinder.jpg', tag: '18+', desc: '4-piece gold-finish grinder with kief catcher.' },
   { id: 10, name: 'RAW Classic Connoisseur Papers + Tips', cat: 'Accessories', price: 45, emoji: '📄', img: 'images/raw-classic-papers.jpg', tag: '18+', desc: '1¼ size natural unrefined papers with tips.' },
   { id: 11, name: 'RAW Bamboo Rolling Tray', cat: 'Accessories', price: 650, emoji: '🪵', img: 'images/raw-bamboo-tray.jpg', tag: '18+', desc: 'Bamboo tray with compartments and magnetic lid.' },
+  { id: 12, name: 'Glass Bubbler Pipe', cat: 'Accessories', price: 350, emoji: '🫧', img: 'images/glass-bubbler-pipe.jpg', tag: '18+', desc: 'Hand-blown glass with leaf decal, slide bowl and cleaning cloth.' },
+  { id: 13, name: 'CBD Hemp Oil (30ml)', cat: 'Hemp & CBD', price: 499, emoji: '🌿', img: 'images/cbd-hemp-oil.jpg', tag: '18+', desc: 'Non-psychoactive hemp CBD oil with dropper.' },
 ];
 
 const FREE_DELIVERY_AT = 500, DELIVERY_FEE = 50;
@@ -17,6 +12,7 @@ const $ = s => document.querySelector(s);
 const rand = n => 'R' + n.toLocaleString('en-ZA');
 let cart = {};
 try { cart = JSON.parse(localStorage.getItem('just-cart')) || {}; } catch {}
+Object.keys(cart).forEach(id => { if (!PRODUCTS.some(p => p.id == id)) delete cart[id]; });
 let filter = 'All';
 
 const save = () => { try { localStorage.setItem('just-cart', JSON.stringify(cart)); } catch {} };
