@@ -218,3 +218,10 @@ button{touch-action:manipulation}
   *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
   [data-reveal]{opacity:1;transform:none}
 }
+
+/* social */
+.social-link{display:inline-flex;align-items:center;gap:.5rem;margin-top:.6rem;font-weight:600;text-decoration:none;color:var(--green-text);min-height:44px}
+.social-link:hover{text-decoration:underline;text-underline-offset:4px}
+.social-link svg,.social-btn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:2}
+.social-btn{display:inline-grid;place-items:center;width:48px;height:48px;border-radius:50%;border:2px solid rgba(255,255,255,.5);color:#fff;margin-bottom:1rem;transition:background .2s,transform .3s}
+.social-btn:hover{background:#fff;color:var(--green-dark);transform:rotate(-8deg) scale(1.08)}
